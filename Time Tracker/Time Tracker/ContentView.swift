@@ -12,13 +12,14 @@ struct ContentView: View {
     @State var workingHours: [WorkingHours] = []
     @State var trackingInProgress = false
     
+//    var foreverAnimation: Animation {
+//        Animation.easeInOut(duration: 1.0)
+//        .repeatForever()
+//    }
+    
     var body: some View {
-        VStack {
-            Text("Do, 16.06.2020")
-                .font(.largeTitle)
-                .multilineTextAlignment(.center)
-                .padding(.vertical)
-            if true {
+        NavigationView {
+            VStack {
                 Button(action: {
                     if (self.trackingInProgress) {
                         // Add Endtime to latest workingHour
@@ -30,29 +31,50 @@ struct ContentView: View {
                     
                     self.trackingInProgress.toggle()
                 }) {
-                    Text(self.trackingInProgress ? "Stop" : "Start").font(.largeTitle)
+                    self.trackingInProgress ?
+                        Image(systemName: "stop")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 75.0, height: 75.0) :
+                        Image(systemName: "play")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 75.0, height: 75.0)
                 }
                 .frame(width: 150.0, height: 150.0)
                 .background(self.trackingInProgress ? Color.red : Color.green)
-                .foregroundColor(Color.white)
-                .cornerRadius(10.0)
-            } else {
-                EmptyView()
-            }
+                .foregroundColor(.white)
+                .padding(.vertical, 30.0)
+                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                                
+               VStack {
+                    Text(getOverallTimeString())
+                        .font(.system(size: 40.0))
+                Text("Working Time").font(.subheadline).foregroundColor(.secondary)
+                }
+                .padding(.horizontal)
+                
+                List(workingHours) { workingHour in
+                    WorkingHourCell(workingHour: workingHour)
+                }
+                .padding(.vertical)
             
-            Spacer()
-            Text("Overall: \(getOverallTimeString())")
-            List(workingHours) { workingHour in
-                Text(workingHour.getStartEndString())
-                Spacer()
-                Text(workingHour.getOverallTimeString())
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                Divider().foregroundColor(.gray)
+                                    
+                NotesView(notes: "Dies ist ein Kommentar")
             }
-            .padding(.vertical)
-                            
-            NotesView(notes: "Dies ist ein Kommentar")
+            .navigationBarTitle("\(getCurrentDayString())", displayMode: .automatic)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+        
+    func getCurrentDayString() -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EE, dd.MM.yyyy"
+        let result = formatter.string(from: date)
+        
+        return result
     }
     
     func getOverallWorkingTime() -> TimeInterval {
@@ -95,12 +117,28 @@ struct NotesView: View {
                 Text("Notes")
                     .font(.subheadline)
                     .padding(.leading)
+                
                 Spacer()
             }
+            
             TextField("You can add notes here", text: $notes)
                 .padding(.leading)
                 .foregroundColor(.secondary)
         }
-        .padding(.bottom)
+        .padding(.vertical)
+    }
+}
+
+struct WorkingHourCell: View {
+    let workingHour: WorkingHours
+    
+    var body: some View {
+        NavigationLink(destination: Text("Test")) {
+            Text(workingHour.getStartEndString())
+            Spacer()
+            Text(workingHour.getOverallTimeString())
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+        }
     }
 }
