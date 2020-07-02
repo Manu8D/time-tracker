@@ -11,7 +11,10 @@ import SwiftUI
 struct ContentView: View {
     @State var workingHours: [WorkingHours] = []
     @State var trackingInProgress = false
+    @State var overallWorkingTime: TimeInterval = 0.0
     
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
 //    var foreverAnimation: Animation {
 //        Animation.easeInOut(duration: 1.0)
 //        .repeatForever()
@@ -50,7 +53,10 @@ struct ContentView: View {
                VStack {
                     Text(getOverallTimeString())
                         .font(.system(size: 40.0))
-                Text("Working Time").font(.subheadline).foregroundColor(.secondary)
+                        .onReceive(timer) { _ in
+                            self.overallWorkingTime = self.getOverallWorkingTime()
+                        }
+                    Text("Working Time").font(.subheadline).foregroundColor(.secondary)
                 }
                 .padding(.horizontal)
                 
@@ -81,22 +87,19 @@ struct ContentView: View {
         var overallWorkingTime: TimeInterval = 0.0
         
         for workingHour in workingHours {
-            if workingHour.entryComplete {
-                overallWorkingTime += workingHour.overallTime
-            }
+            overallWorkingTime += workingHour.overallTime
         }
         
         return overallWorkingTime
     }
     
     func getOverallTimeString() -> String {
-        let overallWorkingTime = self.getOverallWorkingTime()
-        
-        let interval = Int(overallWorkingTime)
+        let interval = Int(self.overallWorkingTime)
+        let seconds = (interval % 60)
         let minutes = (interval / 60) % 60
         let hours = (interval / 3600)
         
-        return String(format: "%02i:%02i", hours, minutes)
+        return String(format: "%02i:%02i:%02i", hours, minutes, seconds)
     }
 }
 
@@ -136,9 +139,11 @@ struct WorkingHourCell: View {
         NavigationLink(destination: Text("Test")) {
             Text(workingHour.getStartEndString())
             Spacer()
-            Text(workingHour.getOverallTimeString())
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-        }
+            if (workingHour.endDate != nil) {
+                Text(workingHour.getOverallTimeString())
+                               .font(.subheadline)
+                               .foregroundColor(.secondary)
+            }
+        }.disabled(workingHour.endDate == nil)
     }
 }

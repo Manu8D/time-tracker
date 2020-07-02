@@ -26,11 +26,11 @@ struct WorkingHours: Identifiable {
         let units: Set<Calendar.Component> = [.hour, .minute]
 
         let startTime = calender.dateComponents(units, from: startDate)
-        var timeString = String(format: "%02i:%02i", startTime.hour!, startTime.minute!)
+        var timeString = String(format: "%02i:%02i - ", startTime.hour!, startTime.minute!)
         
         if endDate != nil {
             let endTime = calender.dateComponents(units, from: endDate!)
-            timeString += " - " + String(format: "%02i:%02i", endTime.hour!, endTime.minute!)
+            timeString += " " + String(format: "%02i:%02i", endTime.hour!, endTime.minute!)
         }
         
         return timeString
