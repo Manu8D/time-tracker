@@ -453,16 +453,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Time Tracker/Time Tracker.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Time Tracker/Preview Content\"";
-				DEVELOPMENT_TEAM = 8975SUB96H;
+				DEVELOPMENT_TEAM = 638938BCN4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Time Tracker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "schwandt.Time-Tracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.manu8d.time-tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -475,16 +476,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Time Tracker/Time Tracker.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Time Tracker/Preview Content\"";
-				DEVELOPMENT_TEAM = 8975SUB96H;
+				DEVELOPMENT_TEAM = 638938BCN4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Time Tracker/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "schwandt.Time-Tracker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.manu8d.time-tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
