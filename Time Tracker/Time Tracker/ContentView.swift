@@ -15,11 +15,6 @@ struct ContentView: View {
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-//    var foreverAnimation: Animation {
-//        Animation.easeInOut(duration: 1.0)
-//        .repeatForever()
-//    }
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -106,7 +101,9 @@ struct ContentView: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(workingHours: testData)
+        Group {
+            ContentView(workingHours: testData)
+        }
     }
 }
 #endif

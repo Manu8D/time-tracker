@@ -53,6 +53,6 @@ let testData = [
     WorkingHours(startDate: Date(timeIntervalSinceNow: -15000), endDate: Date(timeIntervalSinceNow: -1500)),
     WorkingHours(startDate: Date(timeIntervalSinceNow: -15000), endDate: Date(timeIntervalSinceNow: -1000)),
     WorkingHours(startDate: Date(timeIntervalSinceNow: -15000), endDate: Date(timeIntervalSinceNow: -800)),
-    WorkingHours(startDate: Date(timeIntervalSinceNow: -15000))
+    WorkingHours(startDate: Date(timeIntervalSinceNow: -15000), endDate: Date(timeIntervalSinceNow: -800)),
 ]
 #endif
